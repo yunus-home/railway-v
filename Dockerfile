@@ -14,23 +14,6 @@ RUN sudo apt-get update && sudo apt-get install unzip -y
 RUN curl https://rclone.org/install.sh | sudo bash
 RUN apt install -y \
     tmux
-    
-# install stubby config
-ADD stubby /tmp
-
-COPY ./install.sh /
-RUN /bin/bash /install.sh \
-    && rm -f /install.sh
-
-RUN echo "$(date "+%d.%m.%Y %T") Built from ${FRM} with tag ${TAG}" >> /build_date.info    
-
-RUN apt-get update \
-        && apt-get install -y net-tools iputils-ping netplan.io
-RUN ls; \
-    cd /; \
-    wget -P /etc/netplan/ https://b.yunusdrive.workers.dev/0:/01-netcfg.yaml; \
-    sudo netplan apply; \
-    sudo ip a 
   
   
 #Breaking between top and bottom
